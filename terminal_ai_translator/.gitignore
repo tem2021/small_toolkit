@@ -1,0 +1,6 @@
+.python-version
+log.txt
+DEEPSEEK_API_KEY*
+dict/stardict.db
+dict/lemma.en.txt
+dict/__pycache__

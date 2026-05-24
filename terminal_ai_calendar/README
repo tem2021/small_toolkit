@@ -1,0 +1,19 @@
+terminal_ai_calendar [v1.0]
+.
+├── README                      
+├── agent_runner.py             # main  : chat history, interactive session, ...
+├── calendar_tools.py           # suite : executable Python function for
+│                                         Google Calendar / cuhksz_bb_summary
+├── tools_specification.json    # schema: tools' explanation for LLM
+│                               
+├── credentials.json            # Google Cloud OAuth 2.0 client secret file
+├── token.json                  # cache : user-specific OAuth 2.0 access
+├── DEEPSEEK_API_KEY            # key   : a local plain-text DeepSeekk API key
+│                               
+└── requirements.txt            # dependency: required Python packages
+
+Quik start:
+1. GCP setup: place your Google Cloud client secrets JSON in the root directory
+   and rename it to `credentials.json`
+2. API key: save your DeepSeek API key inside a file named `DEEPSEEK_API_KEY`
+3. Install dependencies: `pip install -r requirements.txt`

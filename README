@@ -1,0 +1,15 @@
+small_toolkit 
+.                                                                                              
+├── README                  # All tools have their own README file 
+├── cuhksz_bb_summary       # A small Pywright script that logs into CUHKSZ          
+│                             Blackboard, then exports a text summary
+│                             
+├── google_calendar_mcp     # A local MCP server that exposes Google Calendar
+│                             tools to the agent via MCP Python SDK
+│                             
+├── terminal_ai_calendar    # A calendar agent that allows user to modify the 
+│                             Google Calendar with DeepSeek API
+│                             
+└── terminal_ai_translator  # A translator agent that provides english to 
+                              chinese translation with ECDICT and DeepSeek API
+

@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "google-calendar-mcp"
+version = "0.1.0"
+description = "An MCP server exposing Google Calendar tools (OAuth user flow)."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Andy" }]
+dependencies = [
+  "mcp[cli]>=1.20.0",
+  "google-api-python-client>=2.150.0",
+  "google-auth>=2.30.0",
+  "google-auth-oauthlib>=1.2.0",
+  "python-dateutil>=2.9.0",
+]
+
+[project.scripts]
+google-calendar-mcp = "google_calendar_mcp.server:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+

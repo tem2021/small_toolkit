@@ -1,0 +1,49 @@
+terminal_ai_translator: v1.0
+    
+language:   python 3.10+
+run:        python terminal_ai_translator.py
+repository layout:
+    files with prefix * are not in this repository
+    upstream: https://github.com/skywind3000/ECDICT/
+    API platform: https://platform.deepseek.com/api_keys
+    - terminal_ai_translator.py     
+    - dict/             
+        - stardict.py       # minimal ECDICT-compatible reader
+        - *stardict.db      # upstream
+        - *lemma.en.txt     # upstream
+    - requirements.txt
+    - README
+    - .gitignore
+    - *DEEPSEEK_API_KEY     # added by user from the API platform
+    - *log.txt              # local storage file, created by running 
+
+1. translation: for ENG -> CN only
+    - implementation: (online) deepseek API + (offline) ECDICT
+    - use ` to toggle between offline/online mode
+    [1] - offline: word query only
+        - idea: return the minial result (phonetic + CN translation)
+        - query logic:  stripword -> query -> LemmaDB -> match 
+                        (check https://github.com/skywind3000/ECDICT)
+    [2] - online: word query + sentence translation
+        - query logic:  word: stripword -> query -> LemmaDB -> llm 
+                        sentence: llm
+        - if APIConnectionError -> suggest offline
+        - if AuthenticationError -> suggest update the API key
+2. storage: in UTC time 
+    - implementation: txt file
+    - use * to represent store
+    - stored data: string & storing time
+    two way to store:
+    [1] - user input: *str0
+        - program behavior: store str0 
+    [2] - user input: *
+        - program behavior: store last query (only the original query text)
+    - allow repeated storage (for simple implementation)
+3. review: in local time
+    - use ^ to represent review
+    [1] - ^: show the latest 10 logs from local storage 
+    [2] - ^n: show the latest n logs from local storage (n must be number)
+    [3] - ^p: show the storage path
+4. other short commands
+    [1] - q/quit/exit/ctrl+c: quit
+    [2] - h/help: show this README

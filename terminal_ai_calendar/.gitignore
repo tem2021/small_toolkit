@@ -1,0 +1,6 @@
+DEEPSEEK_API_KEY
+token.json
+credentials.json
+
+__pycache__/
+tags

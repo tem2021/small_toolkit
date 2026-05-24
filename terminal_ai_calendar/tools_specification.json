@@ -1,0 +1,212 @@
+[
+  {
+    "type": "function",
+    "function": {
+      "name": "list_user_calendars",
+      "description": "List all calendars associated with the authenticated Google account, along with their summaries and whether they are primary.",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_calendar_name",
+      "description": "Retrieve the friendly display name (summary) of a specific calendar given its ID.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "calendar_id": {
+            "type": "string",
+            "description": "The unique ID of the target calendar (e.g., 'primary' or 'yourname@gmail.com')."
+          }
+        },
+        "required": [
+          "calendar_id"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_calendar_timezone",
+      "description": "Retrieve the default timezone (e.g., 'Asia/Shanghai', 'America/New_York') of the user's primary Google Calendar account to ensure correct local time formatting.",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "query_calendar",
+      "description": "Query events across user calendars, optionally filtering by time range bounds and/or a free-text search term.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "start_time": {
+            "type": "string",
+            "description": "ISO 8601/RFC 3339 formatted lower bound (inclusive) for events to retrieve (e.g., '2026-05-23T00:00:00Z'). Optional."
+          },
+          "end_time": {
+            "type": "string",
+            "description": "ISO 8601/RFC 3339 formatted upper bound (exclusive) for events to retrieve (e.g., '2026-05-30T23:59:59Z'). Optional."
+          },
+          "calendar_id": {
+            "type": "string",
+            "description": "The ID of the calendar to query. Can be a single calendar ID, a comma-separated list of IDs, or 'all' to search across all of the user's calendars. Defaults to 'all'."
+          },
+          "max_results": {
+            "type": "integer",
+            "description": "Maximum number of events to return. Defaults to 20."
+          },
+          "text_query": {
+            "type": "string",
+            "description": "Free-text search query to filter events by matching keywords in the title, description, or location. Optional."
+          }
+        },
+        "required": []
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_calendar_event",
+      "description": "Retrieve the full details of a specific single calendar event using its unique event ID.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "calendar_id": {
+            "type": "string",
+            "description": "The unique ID of the calendar containing the event."
+          },
+          "event_id": {
+            "type": "string",
+            "description": "The unique ID of the target event."
+          }
+        },
+        "required": [
+          "calendar_id",
+          "event_id"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "mutate_calendar_event",
+      "description": "Perform write operations (insert, update, patch, delete) on a calendar event. Features an interactive terminal-based confirmation lock for security.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "insert",
+              "update",
+              "patch",
+              "delete"
+            ],
+            "description": "The write operation to execute."
+          },
+          "calendar_id": {
+            "type": "string",
+            "description": "The unique ID of the target calendar. Defaults to 'primary'."
+          },
+          "event_id": {
+            "type": "string",
+            "description": "The unique ID of the event. Required for 'update', 'patch', and 'delete' actions."
+          },
+          "event_body": {
+            "type": "object",
+            "description": "The event details payload. Required for 'insert', 'update', and 'patch' actions. Must follow standard Google Calendar event resource format. For standard timed events, use 'dateTime' (e.g., {'dateTime': '2026-05-24T15:00:00+08:00'}). For all-day events, use 'date' (e.g., {'date': '2026-05-24'}) in YYYY-MM-DD format inside 'start' and 'end'. Note that for all-day events, the 'end' date is exclusive and represents the following day (e.g., for a 1-day event on June 1st, start is '2026-06-01' and end is '2026-06-02')."
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_recurring_instances",
+      "description": "Fetch all individual occurrences (instances) of a recurring event series.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "master_event_id": {
+            "type": "string",
+            "description": "The master recurring event series ID."
+          },
+          "calendar_id": {
+            "type": "string",
+            "description": "The unique ID of the target calendar. Defaults to 'primary'."
+          },
+          "max_results": {
+            "type": "integer",
+            "description": "Maximum number of instances to return. Defaults to 20."
+          }
+        },
+        "required": [
+          "master_event_id"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "split_recurring_event",
+      "description": "Split a recurring event series at a specific date. Truncates the old series and recreates a new series starting from the split date. Useful for 'update this and future occurrences'.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "calendar_id": {
+            "type": "string",
+            "description": "The unique ID of the target calendar."
+          },
+          "master_id": {
+            "type": "string",
+            "description": "The master recurring event ID to truncate."
+          },
+          "split_date_str": {
+            "type": "string",
+            "description": "The split effective date in YYYYMMDD format (e.g., '20260704')."
+          },
+          "new_event_body": {
+            "type": "object",
+            "description": "The payload details of the new recurring series starting from the split date."
+          }
+        },
+        "required": [
+          "calendar_id",
+          "master_id",
+          "split_date_str",
+          "new_event_body"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "fetch_school_course_summary",
+      "description": "Automatically execute the Blackboard scraper script ('cuhksz_bb_summary.py') in the sibling folder, retrieve the generated 'course_data_summary.txt' containing school course schedules, assignments, or deadlines, and return its textual content to the Agent.",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    }
+  }
+]

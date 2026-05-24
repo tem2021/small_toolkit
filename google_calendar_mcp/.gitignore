@@ -1,0 +1,28 @@
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+venv/
+dist/
+build/
+*.egg-info/
+
+# Local OAuth secrets / tokens (never commit)
+client_secret*.json
+token.json
+tokens.json
+*.token.json
+
+# App runtime data
+.cache/
+.data/
+
+# cursor related 
+.cursor/
+
+# docs
+README_CN.md
+
+# pyenv local env
+.python-version
