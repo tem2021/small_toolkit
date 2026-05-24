@@ -3,4 +3,5 @@ token.json
 credentials.json
 
 __pycache__/
+.python-version
 tags
