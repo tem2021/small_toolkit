@@ -17,3 +17,7 @@ Quik start:
    and rename it to `credentials.json`
 2. API key: save your DeepSeek API key inside a file named `DEEPSEEK_API_KEY`
 3. Install dependencies: `pip install -r requirements.txt`
+
+Notice: ./calendar_tools.py:339:
+you might need to update the PATH of the python binary if you use different
+virtual environments between `terminal_ai_calendar` and `cuhksz_bb_summary`

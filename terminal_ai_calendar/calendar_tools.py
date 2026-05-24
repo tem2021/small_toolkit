@@ -383,7 +383,7 @@ def mutate_calendar_event(action:str, calendar_id: str = 'primary',
 
 # update the BB summary 
 # NOTICE: remember to change the PATH of the cuhksz_bb_summary/ python 
-#         binary file if you use different virtual environment
+#         binary if you use different virtual environment
 def fetch_school_course_summary():
     current_file_path   = os.path.abspath(__file__)
     base_dir           = os.path.dirname(os.path.dirname(current_file_path))
