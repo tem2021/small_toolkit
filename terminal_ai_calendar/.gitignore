@@ -1,6 +1,7 @@
 DEEPSEEK_API_KEY
 token.json
 credentials.json
+user_query.txt
 
 __pycache__/
 .python-version

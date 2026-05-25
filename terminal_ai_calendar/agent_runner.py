@@ -161,7 +161,7 @@ def run_react_cycle(messages: list, tools_spec: list):
 if __name__ == "__main__":
     tools_spec = load_tools_specification()     # load function definition
     messages = []                               # messages context
-    print("TYPE 'exit/quit/q' TO END THE SESSION.")
+    print("KEYWORD: exit/quit/q/file")
 
     while 1:
         # inject the exact current time 
@@ -211,7 +211,25 @@ if __name__ == "__main__":
         if user_query.lower() in ["exit", "quit", "q"]:
             raise SystemExit("")
 
+        is_from_file = (user_query.lower() == "file")
+        if is_from_file:
+            try:
+                with open("user_query.txt", "r") as f:
+                    user_query = f.read().strip()
+            except FileNotFoundError:
+                print("[Error] No such file: 'user_query.txt', create an "
+                      "empty one")
+                with open("user_query.txt", "w"): pass
+                continue
+            if not user_query: 
+                print("[Error] No content in 'user_query.txt'")
+                continue
+
         messages.append({"role": "user", "content": user_query})
         messages = run_react_cycle(messages, tools_spec)
-        print()
+        if is_from_file:
+            if_clean = input("Do you want to clean the 'user_query.txt'? (y/n):"
+                             " ").lower().strip()
+            if if_clean == "y":
+                with open("user_query.txt", "w"): pass
 
