@@ -1,22 +1,29 @@
-terminal_ai_translator: v1.0
-    
-language:   python 3.10+
-run:        python terminal_ai_translator.py
-repository layout:
-    files with prefix * are not in this repository
-    upstream: https://github.com/skywind3000/ECDICT/
-    API platform: https://platform.deepseek.com/api_keys
-    - terminal_ai_translator.py     
-    - dict/             
-        - stardict.py       # minimal ECDICT-compatible reader
-        - *stardict.db      # upstream
-        - *lemma.en.txt     # upstream
-    - requirements.txt
-    - README
-    - .gitignore
-    - *DEEPSEEK_API_KEY     # added by user from the API platform
-    - *log.txt              # local storage file, created by running 
+terminal_ai_translator [v1.0]
+.   
+├── README
+├── *DEEPSEEK_API_KEY            # DeepSeek API key
+│   
+├── dict
+│   ├── *lemma.en.txt           # inflection (form upstream)
+│   ├── *stardict.db            # dictionary (from upstream)
+│   └── stardict.py             # minimal ECDICT-compatible reader
+│   
+├── terminal_ai_translator.py   # main 
+├── *log.txt                    # local storage file, created by running 
+│   
+└── requirements.txt            # dependency
 
+upstream: https://github.com/skywind3000/ECDICT/
+API platform: https://platform.deepseek.com/api_keys
+    
+
+Quick start:
+1. API key: save your DeepSeek API key inside a file named 'DEEPSEEK_API_KEY'
+2. Install dependencies: 'pip install -r requirements.txt'
+3. Running: python terminal_ai_translator.py
+
+
+Manual page:
 1. translation: for ENG -> CN only
     - implementation: (online) deepseek API + (offline) ECDICT
     - use ` to toggle between offline/online mode
